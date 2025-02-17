@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Aptitude Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <h1 class="title">DATA SONICS</h1>
+        <div class="marquee">
+            <span>| Dhanush | Kiran | Sanju | Darshan |</span>
+        </div>
+        <div id="message"></div>
+        <button id="startButton" class="start-button">Start Test</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const startButton = document.getElementById("startButton");
+            const message = document.getElementById("message");
+
+            // Check if the user was disqualified
+            if (sessionStorage.getItem("disqualified") === "true") {
+                message.innerHTML = "<h2 class='disqualified-message'>You have been disqualified</h2>";
+                startButton.style.display = "none"; // Hide start button
+            }
+
+            startButton.addEventListener("click", function () {
+                sessionStorage.setItem("disqualified", "false"); // Reset disqualification status
+                window.location.href = "test.html"; // Redirect to test page instead of Google Form
+            });
+        });
+    </script>
+</body>
+</html>

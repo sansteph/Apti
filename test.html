@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Test</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Aptitude Test</h1>
+        <iframe id="testFrame" src="https://docs.google.com/forms/d/e/1FAIpQLSfX5Mu1Lz0vMX_zYtwpckab1Vuomv03GHLA3FqvmGumW9lTJg/viewform?embedded=true" allowfullscreen></iframe>
+        <div id="disqualifyMessage" class="hidden">You have been disqualified!</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const disqualifyMessage = document.getElementById("disqualifyMessage");
+
+            let hasInteracted = false;
+
+            // Detect interaction with the form
+            window.addEventListener("focus", () => {
+                hasInteracted = true;
+            });
+
+            // Monitor for tab switch
+            document.addEventListener("visibilitychange", () => {
+                if (hasInteracted && document.hidden) {
+                    sessionStorage.setItem("disqualified", "true");
+                    location.href = "index.html"; // Redirect to index page
+                }
+            });
+
+            // Check if already disqualified
+            if (sessionStorage.getItem("disqualified") === "true") {
+                disqualifyMessage.classList.remove("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
